@@ -1,0 +1,147 @@
+body, html {
+  margin: 0;
+  padding: 0; 
+  background-color:#e4f4e3;
+  z-index: 0;
+}
+
+.froggers {
+background-color: #00A651;
+color: black;
+border: solid black;
+margin: -10px;
+padding: 6px;
+justify-content:space-around;
+display:flex;
+}
+
+.nav {
+background-color: white;
+border: 2px solid black;
+border-radius: 15px;
+padding: 5px;
+margin-left:10px;
+margin-right:10px;
+margin-top:13px;
+margin-bottom:5px;
+width: 250px;
+height: 40px;
+display:flex;
+justify-content: center;
+align-items: center;
+}
+
+  .cart-btn {
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 50%;
+    padding: 2px 2px;
+    margin-top:10px;
+    font-weight: bold;
+    font-size:20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    border: 2px solid black;
+    border-radius: 10px;
+    z-index: 100;
+    top: 60px;
+    left: 4.25%;
+  }
+
+  .dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f2f2f2;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .cart:hover {
+    background-color: #f2f2f2;
+  }
+
+  .small-image-bg {
+position: fixed;
+top: 100px; 
+right: -450px;
+border: solid black 5px;
+border-radius: 75px;
+background-color:  #00A651;
+width: 640px;
+height:200px;
+justify-content: center;
+align-items: center;
+}
+
+  .small-image {
+  position: fixed;
+  top: 72.5px;    /* control separately */
+  right: -36.5px;
+  width: 265px;
+  height: auto;
+  z-index: 2;   /* sits above the green background */
+}
+
+.big-image {
+  position: fixed;
+  bottom: -300px;          
+  left: -400px;
+  
+}
+
+.cname {
+position: absolute;
+background-color: #32CD32;
+color: black;
+border: solid black;
+width: 500px;
+height: 125px;
+border-radius: 15px;
+display: flex; 
+justify-content: center; 
+align-items: center;     
+text-align: center;
+top:150px;
+left:100px;
+font-size:25px;
+}
+
+.buynow {
+position: fixed;
+bottom: 100px;
+right: 150px;
+background-color: #00A651;
+color: white;
+font-size: 60px;
+font-weight: bold;
+padding: 10px 21px;
+border-radius: 15px;
+cursor: pointer;
+box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}

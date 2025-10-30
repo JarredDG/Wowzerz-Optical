@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+<link rel="stylesheet" href="productdetails-styles.css">
+</head>
+<body>
+<div class ="froggers">
+  <div class = "nav"><a href="home.html"><h1>HOME</h1></a></div>
+  <div class = "nav"><a href="details.html"><h1>DETAILS</h1></a></div>
+
+  <div class="nav">
+  <div class="dropdown">
+    <h1>EYEWEAR ▼</h1>
+    <div class="dropdown-content">
+      <a href="Eyeglasses-men.html">Men</a>
+      <a href="Eyeglasses-womens.html">Women</a>
+      <a href="Eyeglasses-kids.html">Kids</a>
+      <a href="Eyeglasses-unisex.html">Unisex</a>
+    </div>
+  </div>
+  </div>
+  <div class="nav"><a href="contacts.html"><h1>CONTACT US</h1></a></div>
+  <div class="nav"><a href="About-us.html"><h1>ABOUT US</h1></a></div>
+  <div class="cart-btn"><a href="cart.html">🛒</a></div>
+</div>
+
+<div class="categories">
+  <div class="catenav"><h1><a href="Eyeglasses-men.html">MEN'S</a></h1></div>
+  <div class="catenav"><h1><a href="Eyeglasses-womens.html">WOMEN'S</a></h1></div>
+  <div class="catenav"><h1><a href="Eyeglasses-kids.html">KID'S</a></h1></div>
+  <div class="catenav"><h1><a href="Eyeglasses-unisex.html">UNISEX</a></h1></div>
+</div>
+
+<div class="product-container">
+    <div class="product-image">
+      <img id="product-image" src = "" alt = "Product Image"> 
+    </div>
+
+    <div class="product-details">
+      <h2 id="product-name"></h2>
+      <p class="price" id ="product-price"></p>
+      <p class="desc" id="product-desc"></p>
+
+      <h3>Optical Power</h3>
+      <div class="power-options">
+        <button>+1.00</button>
+        <button>+1.25</button>
+        <button>+1.50</button>
+        <button>+1.75</button>
+        <button>+2.00</button>
+        <button>+2.25</button>
+        <button>+2.50</button>
+        <button>+2.75</button>
+        <button>+3.00</button>
+      </div>
+
+      <div class="quantity">
+        <label>Quantity</label>
+        <button class="qty-btn">-</button>
+        <span class="qty-number">1</span>
+        <button class="qty-btn">+</button>
+      </div>
+
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+    {
+      id: 8,
+      name: "Mahogany Color Slim Oval-Shaped Glasses",
+      price: "₱1299.00",
+      desc: " Elegant slim oval frame perfect for a classy and timeless look.",
+      image: "images/women glasses 1.png"
+    },
+    {
+      id: 9,
+      name: "Light Grey Colored Oval Glasses",
+      price: "₱999.00",
+      desc: "Soft and subtle light grey frame that adds a clean, sophisticated touch to any outfit.", 
+      image: "images/women glasses 2.png"
+    },
+    {
+      id: 10,
+      name: "Tiger Commando Square Glasses",
+      price: "₱899.00",
+      desc: "Bold square frame with a strong, modern design for a confident appearance.", 
+      image: "images/women glasses 3.png"
+    },
+    {
+      id: 11,
+      name: "Brown Colored Translucent Glasses",
+      price: "₱1099.00",
+      desc: "Stylish brown frame that combines modern minimalism with everyday comfort.",   
+      image: "images/women glasses 4.png"
+    },
+    {
+      id: 12,
+      name: "Purple Colored Frameless Glasses",
+      price: "₱1099.00",
+      desc: " Light weight and sleek frameless design in a purple hue for a modern, airy feel.", 
+      image: "images/women glasses 5.png"
+    },
+    {
+      id: 13,
+      name: "Bright Red Colored Oval Glasses",
+      price: "₱1199.00",
+      desc: "Bold bright red oval frames that add energy and confidence to any outfit.", 
+      image: "images/women glasses 6.png"
+    },
+    {
+      id: 14,
+      name: "Thin Black Metal Round Glasses",
+      price: "₱699.00",
+      desc: "Stylish oval frames with a unique print pattern for a fashionable edge .", 
+      image: "images/women glasses 7.png"
+    },
+    {
+      id: 15,
+      name: "Leopard Print Round Glasses",
+      price: "₱799.00",
+      desc: "Playful round frames with a trendy leopard print—perfect for a fun, and standout look.", 
+      image: "images/women glasses 8.png"
+    },
+
+    ]
+
+    const params = new URLSearchParams(window.location.search);
+    const productId = parseInt(params.get('id'));
+    const product = products.find(p => p.id === productId);
+
+    if (product) {
+      document.getElementById('product-image').src = product.image;
+      document.getElementById('product-name').textContent = product.name;
+      document.getElementById('product-price').textContent = product.price;
+      document.getElementById('product-desc').textContent = product.desc;
+    }
+
+  </script>
+
+</body>
+</html>
