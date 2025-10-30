@@ -124,20 +124,72 @@
       image: "images/women glasses 8.png"
     },
 
-    ]
+    ];
 
-    const params = new URLSearchParams(window.location.search);
-    const productId = parseInt(params.get('id'));
-    const product = products.find(p => p.id === productId);
+   const params = new URLSearchParams(window.location.search);
+const productId = parseInt(params.get('id'));
+const product = products.find(p => p.id === productId);
 
-    if (product) {
-      document.getElementById('product-image').src = product.image;
-      document.getElementById('product-name').textContent = product.name;
-      document.getElementById('product-price').textContent = product.price;
-      document.getElementById('product-desc').textContent = product.desc;
-    }
+if (product) {
+  document.getElementById('product-image').src = product.image;
+  document.getElementById('product-name').textContent = product.name;
+  document.getElementById('product-price').textContent = product.price;
+  document.getElementById('product-desc').textContent = product.desc;
+}
 
-  </script>
+let selectedPower = null;
+let quantity = 1;
+
+const powerButtons = document.querySelectorAll('.power-options button');
+powerButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    powerButtons.forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedPower = btn.textContent;
+  });
+});
+
+const qtyDisplay = document.querySelector('.qty-number');
+const qtyButtons = document.querySelectorAll('.qty-btn');
+
+qtyButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.textContent === '+' && quantity < 99) quantity++;
+    else if (btn.textContent === '-' && quantity > 1) quantity--;
+    qtyDisplay.textContent = quantity;
+  });
+});
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+const addToCartBtn = document.querySelector('.add-to-cart');
+addToCartBtn.addEventListener('click', () => {
+  if (!product) return;
+
+  if (!selectedPower) {
+    alert("Please select an optical power first!");
+    return;
+  }
+
+  const existingItem = cart.find(item => item.id === product.id && item.power === selectedPower);
+
+  if (existingItem) {
+    existingItem.quantity += quantity;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      power: selectedPower,
+      quantity: quantity
+    });
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`${product.name} (${selectedPower}) x${quantity} added to cart!`);
+});
+</script>
 
 </body>
 </html>
