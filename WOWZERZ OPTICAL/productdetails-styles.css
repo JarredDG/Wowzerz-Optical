@@ -170,6 +170,12 @@ h3 {
   background-color: #f0f0f0;
 }
 
+.power-options button.selected {
+  background-color: #00A651;
+  color: white;
+  border: 2px solid black;
+}
+
 .quantity {
   margin-top: 20px;
   display: flex;
@@ -205,4 +211,5 @@ h3 {
 .add-to-cart:hover {
   background-color: #00A651;
   color: white;
+
 }
