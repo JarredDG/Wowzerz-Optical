@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Summary</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #fdfdfd;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00A651;
+    padding: 15px 0;
+    border: 2px solid black;
+    gap: 50px;
+  }
+
+  nav h1 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 10px 40px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  nav a:hover {
+    background-color: #f2f2f2;
+  }
+
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    border: 2px solid black;
+    border-radius: 10px;
+    z-index: 1;
+    top: 50px;
+    left: 0;
+  }
+
+  .dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f2f2f2;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  
+  .cart {
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 10px 40px;
+    font-weight: bold;
+  }
+
+  .cart:hover {
+    background-color: #f2f2f2;
+  }
+
+  
+  .order-summary {
+    margin: 40px auto;
+    width: 80%;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    text-align: center;
+    background-color: #e6e6e6;
+    border-radius: 15px;
+    width: 200px;
+    margin: 10px auto;
+    padding: 8px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+
+  table, th, td {
+    border: 1px solid gray;
+  }
+
+  th, td {
+    text-align: center;
+    padding: 8px;
+  }
+
+  .info {
+    padding: 10px 20px;
+    line-height: 1.8;
+  }
+
+  .info p {
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+
+<nav>
+  <a href="home.html"><h1>HOME</h1></a>
+  <a href="details.html"><h1>DETAILS</h1></a>
+
+  
+  <div class="dropdown">
+    <a href="#"><h1>EYEWEAR ▼</h1></a>
+    <div class="dropdown-content">
+      <a href="men.html">Men</a>
+      <a href="women.html">Women</a>
+      <a href="kids.html">Kids</a>
+    </div>
+  </div>
+
+  <a href="contacts.html"><h1>CONTACTS</h1></a>
+  <a href="about.html"><h1>ABOUT US</h1></a>
+  <a href="cart.html" class="cart"><h1>🛒</h1></a>
+</nav>
+
+
+<div class="order-summary">
+  <h2>ORDER SUMMARY</h2>
+  <div class="info">
+    <p><strong>Customer name:</strong> #########</p>
+    <p><strong>Customer Address:</strong> #########</p>
+    <p><strong>Order No.:</strong> ###########</p>
+    <p><strong>Date Issued:</strong> ###########</p>
+    <p><strong>Payment Method:</strong> Cash on Delivery</p>
+  </div>
+
+  <h3 style="text-align:center;">Order Details</h3>
+  <table>
+    <tr>
+      <th>No.</th>
+      <th>Product</th>
+      <th>Variant</th>
+      <th>Price</th>
+      <th>Qty</th>
+      <th>Total</th>
+    </tr>
+    <tr>
+      <td>1.</td>
+      <td>#########</td>
+      <td>RGB</td>
+      <td>10</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>
