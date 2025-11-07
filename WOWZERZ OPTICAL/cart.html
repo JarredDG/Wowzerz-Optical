@@ -25,19 +25,71 @@
   <div class="cart-btn"><a href="cart.html">🛒</a></div>
 </div>
 
-<div class="align">
-<div class="product">
-<img src="product.png">
-<div class="proddetails">
-<h2>Product Name 🗑️ </h2>
-<p>$XXX</p>
-<p>Optical Power:XXX</p>
-<p>Qnty:XXX</p>
-</div>
-</div>
-</div>
+<div class="align" id="cart-container"></div>
 <div class="bottomcase">
-<div class="checkout">
-<h1><a href="deliverydetails.html">PROCEED TO CHECKOUT</a></h1></div>
+  <div class="checkout">
+    <h1><a href="deliverydetails.html">PROCEED TO CHECKOUT</a></h1>
+  </div>
 </div>
-</div>
+
+<script>
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  const cartContainer = document.getElementById('cart-container');
+
+  function renderCart() {
+    cartContainer.innerHTML = ""; 
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = "<h2>Your cart is empty 🛒</h2>";
+      return;
+    }
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      
+      const numericPrice = parseFloat(item.price.replace(/[₱,]/g, ""));
+      const itemTotal = numericPrice * item.quantity;
+      total += itemTotal;
+
+      const productDiv = document.createElement("div");
+      productDiv.classList.add("product");
+
+      productDiv.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="proddetails">
+          <h2>${item.name} 
+            <button class="remove-btn" data-index="${index}">🗑️</button>
+          </h2>
+          <p>Price: ${item.price}</p>
+          <p>Quantity: ${item.quantity}</p>
+          <p>Subtotal: ₱${itemTotal.toLocaleString()}</p>
+        </div>
+      `;
+
+      cartContainer.appendChild(productDiv);
+    });
+
+    const totalDiv = document.createElement("div");
+    totalDiv.classList.add("cart-total");
+    totalDiv.innerHTML = `<h2>Total: ₱${total.toLocaleString()}</h2>`;
+    cartContainer.appendChild(totalDiv);
+
+    const removeButtons = document.querySelectorAll(".remove-btn");
+    removeButtons.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const index = e.target.getAttribute("data-index");
+        removeItem(index);
+      });
+    });
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+  }
+
+  renderCart();
+</script>
