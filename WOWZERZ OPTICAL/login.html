@@ -6,7 +6,6 @@
 <title>Login Page</title>
 
 <style>
-
 body, html {
   margin: 0;
   padding: 0;
@@ -56,6 +55,34 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.nav2 {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.nav2 a {
+  text-decoration: none;
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav2:hover {
+  background-color: #f2f2f2;
+  transform: scale(1.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .dropdown {
@@ -171,6 +198,9 @@ body, html {
     <div class="nav"><a href="contacts.html"><h1>CONTACT US</h1></a></div>
     <div class="nav"><a href="About-us.html"><h1>ABOUT US</h1></a></div>
     <div class="cart-btn"><a href="cart.html">🛒</a></div>
+
+    <!-- NEW circular nav2 button -->
+    <div class="nav2"><a href="signup.html">➜]</a></div> 
   </div>
 
   <div class="login-section">
@@ -184,38 +214,28 @@ body, html {
   </div>
 
 <script>
-// === LOGIN SCRIPT (with JSON and beginner comments) ===
+// === LOGIN SCRIPT ===
 document.querySelector("#loginForm").addEventListener("submit", function(event) {
-  event.preventDefault(); // prevent page reload
+  event.preventDefault();
 
-  // get input values
   const username = document.querySelector('input[name="username"]').value.trim();
   const password = document.querySelector('input[name="password"]').value.trim();
 
-  // simple validation
   if (!username || !password) {
     alert("Please enter both username and password.");
     return;
   }
 
-  // get user data from localStorage (JSON format)
   const userData = localStorage.getItem(username);
 
   if (!userData) {
-    // if account not found
     alert("Account not found. Please sign up first.");
   } else {
-    // convert JSON string back to an object
     const user = JSON.parse(userData);
 
-    // check password
     if (user.password === password) {
       alert("Login successful!");
-
-      // save logged in user (to check later when purchasing)
       localStorage.setItem("loggedInUser", username);
-
-      // redirect to homepage
       window.location.href = "home.html";
     } else {
       alert("Incorrect password. Try again.");
