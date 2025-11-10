@@ -6,6 +6,7 @@
 <title>Sign Up Page</title>
 
 <style>
+/* --- SAME STYLES AS BEFORE --- */
 body, html {
   margin: 0;
   padding: 0;
@@ -148,23 +149,6 @@ body, html {
 .signup-section a:hover {
   text-decoration: underline;
 }
-
-@media (max-width: 500px) {
-  .froggers {
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
-  }
-
-  .nav {
-    width: 90%;
-  }
-
-  .signup-section {
-    width: 90%;
-    margin-top: 50px;
-  }
-}
 </style>
 </head>
 
@@ -173,7 +157,6 @@ body, html {
   <div class="froggers">
     <div class="nav"><a href="home.html"><h1>HOME</h1></a></div>
     <div class="nav"><a href="details.html"><h1>DETAILS</h1></a></div>
-
     <div class="nav">
       <div class="dropdown">
         <h1>EYEWEAR ▼</h1>
@@ -185,7 +168,6 @@ body, html {
         </div>
       </div>
     </div>
-
     <div class="nav"><a href="contacts.html"><h1>CONTACT US</h1></a></div>
     <div class="nav"><a href="About-us.html"><h1>ABOUT US</h1></a></div>
     <div class="cart-btn"><a href="cart.html">🛒</a></div>
@@ -202,9 +184,11 @@ body, html {
   </div>
 
 <script>
+// === SIGNUP SCRIPT (with JSON and beginner comments) ===
 document.querySelector("#signupForm").addEventListener("submit", function(event) {
-  event.preventDefault();
+  event.preventDefault(); // stop page from reloading
 
+  // get input values
   const username = document.querySelector('input[name="username"]').value.trim();
   const password = document.querySelector('input[name="password"]').value.trim();
 
@@ -213,14 +197,22 @@ document.querySelector("#signupForm").addEventListener("submit", function(event)
     return;
   }
 
+  // check if username already exists
   if (localStorage.getItem(username)) {
     alert("Username already exists. Please choose another one or log in.");
-    return;
-  }
+  } else {
+    // create a simple user object
+    const user = {
+      username: username,
+      password: password
+    };
 
-  localStorage.setItem(username, password);
-  alert("Account created successfully! Redirecting to login...");
-  window.location.href = "login.html";
+    // convert it to JSON and save it
+    localStorage.setItem(username, JSON.stringify(user));
+
+    alert("Account created successfully! Redirecting to login...");
+    window.location.href = "login.html";
+  }
 });
 </script>
 
