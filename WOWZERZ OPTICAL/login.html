@@ -6,6 +6,7 @@
 <title>Login Page</title>
 
 <style>
+
 body, html {
   margin: 0;
   padding: 0;
@@ -148,23 +149,6 @@ body, html {
 .login-section a:hover {
   text-decoration: underline;
 }
-
-@media (max-width: 500px) {
-  .froggers {
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
-  }
-
-  .nav {
-    width: 90%;
-  }
-
-  .login-section {
-    width: 90%;
-    margin-top: 50px;
-  }
-}
 </style>
 </head>
 
@@ -173,7 +157,6 @@ body, html {
   <div class="froggers">
     <div class="nav"><a href="home.html"><h1>HOME</h1></a></div>
     <div class="nav"><a href="details.html"><h1>DETAILS</h1></a></div>
-
     <div class="nav">
       <div class="dropdown">
         <h1>EYEWEAR ▼</h1>
@@ -185,7 +168,6 @@ body, html {
         </div>
       </div>
     </div>
-
     <div class="nav"><a href="contacts.html"><h1>CONTACT US</h1></a></div>
     <div class="nav"><a href="About-us.html"><h1>ABOUT US</h1></a></div>
     <div class="cart-btn"><a href="cart.html">🛒</a></div>
@@ -202,29 +184,42 @@ body, html {
   </div>
 
 <script>
+// === LOGIN SCRIPT (with JSON and beginner comments) ===
 document.querySelector("#loginForm").addEventListener("submit", function(event) {
-  event.preventDefault();
+  event.preventDefault(); // prevent page reload
 
+  // get input values
   const username = document.querySelector('input[name="username"]').value.trim();
   const password = document.querySelector('input[name="password"]').value.trim();
 
+  // simple validation
   if (!username || !password) {
     alert("Please enter both username and password.");
     return;
   }
 
-  const savedPassword = localStorage.getItem(username);
+  // get user data from localStorage (JSON format)
+  const userData = localStorage.getItem(username);
 
-  if (!savedPassword) {
+  if (!userData) {
+    // if account not found
     alert("Account not found. Please sign up first.");
-    return;
-  }
-
-  if (savedPassword === password) {
-    alert("Login successful!");
-    window.location.href = "home.html";
   } else {
-    alert("Incorrect password. Try again.");
+    // convert JSON string back to an object
+    const user = JSON.parse(userData);
+
+    // check password
+    if (user.password === password) {
+      alert("Login successful!");
+
+      // save logged in user (to check later when purchasing)
+      localStorage.setItem("loggedInUser", username);
+
+      // redirect to homepage
+      window.location.href = "home.html";
+    } else {
+      alert("Incorrect password. Try again.");
+    }
   }
 });
 </script>
