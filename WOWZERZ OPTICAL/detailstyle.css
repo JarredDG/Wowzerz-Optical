@@ -53,19 +53,21 @@ align-items: center;
     display: inline-block;
   }
 
-  .dropdown-content {
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: white;
     min-width: 150px;
     border: 2px solid black;
     border-radius: 10px;
+    padding: 5px;
     z-index: 1;
     top: 60px;
     left: 4.25%;
+    
   }
 
-  .dropdown-content a {
+.dropdown-content a {
     display: block;
     padding: 10px;
     text-align: center;
@@ -214,4 +216,5 @@ align-items: center;
   width: 250px;
   height: auto;
   z-index: 2;   /* sits above the green background */
+
 }
