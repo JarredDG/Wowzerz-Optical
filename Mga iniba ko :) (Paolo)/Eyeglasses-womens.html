@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Women's Eyeglasses</title>
+  <link rel="stylesheet" href="womenglasses-style.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="froggers">
+  <div class="nav"><a href="home.html"><h1>HOME</h1></a></div>
+  <div class="nav"><a href="details.html"><h1>DETAILS</h1></a></div>
+
+  <div class="nav">
+    <div class="dropdown">
+      <h1>EYEWEAR ▼</h1>
+      <div class="dropdown-content">
+        <a href="Eyeglasses-men.html">Men</a>
+        <a href="Eyeglasses-womens.html">Women</a>
+        <a href="Eyeglasses-kids.html">Kids</a>
+        <a href="Eyeglasses-unisex.html">Unisex</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav"><a href="contacts.html"><h1>CONTACT US</h1></a></div>
+  <div class="nav"><a href="About-us.html"><h1>ABOUT US</h1></a></div>
+  <div class="cart-btn"><a href="cart.html">🛒</a></div>
+</div>
+
+<!-- Category Navigation -->
+<div class="categories">
+  <div class="catenav"><h1><a href="Eyeglasses-men.html">MEN'S</a></h1></div>
+  <div class="catenav"><h1><a href="Eyeglasses-womens.html">WOMEN'S</a></h1></div>
+  <div class="catenav"><h1><a href="Eyeglasses-kids.html">KID'S</a></h1></div>
+  <div class="catenav"><h1><a href="Eyeglasses-unisex.html">UNISEX</a></h1></div>
+</div>
+
+<!-- First Row -->
+<div class="product-grid">
+  <div class="product" data-id="8">
+    <a href="WProductdetails.html?id=8"><img src="images/women glasses 1.png" alt="Mahogany glasses"></a>
+    <div class="product-name">Mahogany color slim oval-shaped glasses</div>
+    <div class="price">₱1299.00</div>
+    <div class="stock-info"></div>
+  </div>
+
+  <div class="product" data-id="9">
+    <a href="WProductdetails.html?id=9"><img src="images/women glasses 2.png" alt="Light grey glasses"></a>
+    <div class="product-name">Light grey colored oval glasses</div>
+    <div class="price">₱999.00</div>
+    <div class="stock-info"></div>
+  </div>
+
+  <div class="product" data-id="10">
+    <a href="WProductdetails.html?id=10"><img src="images/women glasses 3.png" alt="Tiger Commando glasses"></a>
+    <div class="product-name">Tiger Commando square glasses</div>
+    <div class="price">₱899.00</div>
+    <div class="stock-info"></div>
+  </div>
+
+  <div class="product" data-id="11">
+    <a href="WProductdetails.html?id=11"><img src="images/women glasses 4.png" alt="Brown translucent frame"></a>
+    <div class="product-name">Brown colored translucent frame</div>
+    <div class="price">₱1099.00</div>
+    <div class="stock-info"></div>
+  </div>
+</div>
+
+<!-- Second Row -->
+<div class="product-grid">
+  <div class="product" data-id="12">
+    <a href="WProductdetails.html?id=12"><img src="images/women glasses 5.png" alt="Purple frameless glasses"></a>
+    <div class="product-name">Purple Colored Frameless Glasses</div>
+    <div class="price">₱1099.00</div>
+    <div class="stock-info"></div>
+  </div>
+
+  <div class="product" data-id="13">
+    <a href="WProductdetails.html?id=13"><img src="images/women glasses 6.png" alt="Bright red oval glasses"></a>
+    <div class="product-name">Bright Red Colored Oval Glasses</div>
+    <div class="price">₱1199.00</div>
+    <div class="stock-info"></div>
+  </div>
+
+  <div class="product" data-id="14">
+    <a href="WProductdetails.html?id=14"><img src="images/women glasses 7.png" alt="Tiger print oval glasses"></a>
+    <div class="product-name">Tiger Print Oval Glasses</div>
+    <div class="price">₱699.00</div>
+    <div class="stock-info"></div>
+  </div>
+
+  <div class="product" data-id="15">
+    <a href="WProductdetails.html?id=15"><img src="images/women glasses 8.png" alt="Leopard print round glasses"></a>
+    <div class="product-name">Leopard Print Round Glasses</div>
+    <div class="price">₱799.00</div>
+    <div class="stock-info"></div>
+  </div>
+</div>
+
+<script src="product-data.js"></script>
+<script>
+function updateStockDisplay() {
+  const saved = localStorage.getItem("products");
+  if (saved) {
+    const savedData = JSON.parse(saved);
+    savedData.forEach(s => {
+      const found = products.find(p => p.id === s.id);
+      if (found) found.stock = s.stock;
+    });
+  }
+
+  const productElements = document.querySelectorAll(".product");
+  productElements.forEach(el => {
+    const id = parseInt(el.getAttribute("data-id"));
+    const product = products.find(p => p.id === id);
+    if (product) {
+      const stockEl = el.querySelector(".stock-info");
+      stockEl.textContent = `Available Stock: ${product.stock}`;
+      stockEl.style.color = "#00A651";
+      stockEl.style.fontWeight = "bold";
+      stockEl.style.marginTop = "5px";
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", updateStockDisplay);
+
+setInterval(updateStockDisplay, 5000);
+</script>
+</body>
+</html>

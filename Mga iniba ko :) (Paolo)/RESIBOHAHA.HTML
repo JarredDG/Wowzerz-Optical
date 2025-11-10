@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Summary</title>
+<link rel="stylesheet" href="receipt.css">
+</head>
+<body>
+
+<nav>
+  <a href="home.html"><h1>HOME</h1></a>
+  <a href="details.html"><h1>DETAILS</h1></a>
+  <div class="dropdown">
+    <a href="#"><h1>EYEWEAR ▼</h1></a>
+    <div class="dropdown-content">
+      <a href="men.html">Men</a>
+      <a href="women.html">Women</a>
+      <a href="kids.html">Kids</a>
+    </div>
+  </div>
+  <a href="contacts.html"><h1>CONTACTS</h1></a>
+  <a href="about.html"><h1>ABOUT US</h1></a>
+  <a href="cart.html" class="cart"><h1>🛒</h1></a>
+</nav>
+
+
+<div class="order-summary">
+  <h2>ORDER SUMMARY</h2>
+  <div class="info" id="customer-info"></div>
+
+  <h3 style="text-align:center;">Order Details</h3>
+  <table id="order-table">
+    <tr>
+      <th>No.</th>
+      <th>Product</th>
+      <th>Optical Power</th>
+      <th>Price</th>
+      <th>Qty</th>
+      <th>Total</th>
+    </tr>
+  </table>
+</div>
+
+<script>
+const customer = JSON.parse(localStorage.getItem('customerDetails'));
+const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+const customerDiv = document.getElementById('customer-info');
+const table = document.getElementById('order-table');
+
+let total = 0;
+
+cart.forEach((item, i) => {
+  const price = parseFloat(item.price.replace(/[₱,]/g, ""));
+  const subtotal = price * item.quantity;
+  total += subtotal;
+
+  const row = `
+    <tr>
+      <td>${i + 1}</td>
+      <td>${item.name}</td>
+      <td>${item.power || "N/A"}</td>
+      <td>₱${price.toLocaleString()}</td>
+      <td>${item.quantity}</td>
+      <td>₱${subtotal.toLocaleString()}</td>
+    </tr>
+  `;
+  table.innerHTML += row;
+});
+
+let summaryRows = `
+  <tr>
+    <td colspan="5" style="text-align:right; font-weight:bold;">Grand Total:</td>
+    <td><strong>₱${total.toLocaleString(undefined, {minimumFractionDigits: 2})}</strong></td>
+  </tr>
+`;
+
+if (customer && customer.discountApplied > 0) {
+  summaryRows += `
+    <tr>
+      <td colspan="5" style="text-align:right;">Senior/PWD Discount:</td>
+      <td>₱${customer.discountApplied.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+    </tr>
+    <tr>
+      <td colspan="5" style="text-align:right; font-weight:bold;">Total After Discount:</td>
+      <td><strong>₱${customer.finalTotal.toLocaleString(undefined, {minimumFractionDigits: 2})}</strong></td>
+    </tr>
+  `;
+}
+
+if (customer && customer.payment) {
+  let change = 0;
+
+ if (customer.payment === "Cash on Delivery" && customer.cashAmount > 0) {
+    change = customer.cashAmount - customer.finalTotal;
+}
+
+  summaryRows += `
+    ${customer.payment === "Cash on Delivery" ? `
+    <tr>
+      <td colspan="5" style="text-align:right;">Cash Given:</td>
+      <td>₱${customer.cashAmount.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+    </tr>
+    <tr>
+      <td colspan="5" style="text-align:right;">Change:</td>
+      <td>₱${change.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+    </tr>
+    ` : ""}
+  `;
+}
+table.innerHTML += summaryRows;
+
+if (customer) {
+  const dateIssued = new Date().toLocaleDateString();
+
+  customerDiv.innerHTML = `
+    <p><strong>Customer Name:</strong> ${customer.name}</p>
+    <p><strong>Address:</strong> ${customer.address}</p>
+    <p><strong>Payment Method:</strong> ${customer.payment}</p>
+    <p><strong>Date Issued:</strong> ${dateIssued}</p>
+  `;
+}
+</script>
+</body>
+</html>

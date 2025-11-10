@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+<link rel="stylesheet" href="productdetails-styles.css">
+</head>
+<body>
+<div class ="froggers">
+  <div class = "nav"><a href="home.html"><h1>HOME</h1></a></div>
+  <div class = "nav"><a href="details.html"><h1>DETAILS</h1></a></div>
+
+  <div class="nav">
+  <div class="dropdown">
+    <h1>EYEWEAR ▼</h1>
+    <div class="dropdown-content">
+      <a href="Eyeglasses-men.html">Men</a>
+      <a href="Eyeglasses-womens.html">Women</a>
+      <a href="Eyeglasses-kids.html">Kids</a>
+      <a href="Eyeglasses-unisex.html">Unisex</a>
+    </div>
+  </div>
+  </div>
+  <div class="nav"><a href="contacts.html"><h1>CONTACT US</h1></a></div>
+  <div class="nav"><a href="About-us.html"><h1>ABOUT US</h1></a></div>
+  <div class="cart-btn"><a href="cart.html">🛒</a></div>
+</div>
+
+<div class="categories">
+  <div class="catenav"><h1><a href="Eyeglasses-men.html">MEN'S</a></h1></div>
+  <div class="catenav"><h1><a href="Eyeglasses-womens.html">WOMEN'S</a></h1></div>
+  <div class="catenav"><h1><a href="Eyeglasses-kids.html">KID'S</a></h1></div>
+  <div class="catenav"><h1><a href="Eyeglasses-unisex.html">UNISEX</a></h1></div>
+</div>
+
+<div class="product-container">
+    <div class="product-image">
+      <img id="product-image" src = "" alt = "Product Image"> 
+    </div>
+
+    <div class="product-details">
+      <h2 id="product-name"></h2>
+      <p class="price" id ="product-price"></p>
+      <p class="desc" id="product-desc"></p>
+
+      <h3>Optical Power</h3>
+      <div class="power-options">
+        <button>+1.00</button>
+        <button>+1.25</button>
+        <button>+1.50</button>
+        <button>+1.75</button>
+        <button>+2.00</button>
+        <button>+2.25</button>
+        <button>+2.50</button>
+        <button>+2.75</button>
+        <button>+3.00</button>
+      </div>
+
+      <div class="quantity">
+        <label>Quantity</label>
+        <button class="qty-btn">-</button>
+        <span class="qty-number">1</span>
+        <button class="qty-btn">+</button>
+      </div>
+
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+  </div>
+
+<script src="product-data.js"></script>
+<script>
+  
+  let storedProducts = JSON.parse(localStorage.getItem("products"));
+  const productsList = storedProducts || products; 
+
+  const params = new URLSearchParams(window.location.search);
+  const productId = parseInt(params.get('id'));
+
+  const product = productsList.find(p => p.id === productId);
+
+  if (product) {
+    document.getElementById('product-image').src = product.image;
+    document.getElementById('product-name').textContent = product.name;
+    document.getElementById('product-price').textContent = product.price;
+    document.getElementById('product-desc').textContent = product.desc;
+  }
+
+  let selectedPower = null;
+  const powerButtons = document.querySelectorAll('.power-options button');
+  powerButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      powerButtons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedPower = btn.textContent;
+    });
+  });
+
+  let quantity = 1;
+  const qtyDisplay = document.querySelector('.qty-number');
+  const qtyButtons = document.querySelectorAll('.qty-btn');
+  qtyButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.textContent === '+' && quantity < 99) quantity++;
+      else if (btn.textContent === '-' && quantity > 1) quantity--;
+      qtyDisplay.textContent = quantity;
+    });
+  });
+
+
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const addToCartBtn = document.querySelector('.add-to-cart');
+addToCartBtn.addEventListener('click', () => {
+  if (!product) return;
+
+  if (!selectedPower) {
+    alert("Please select an optical power first!");
+    return;
+  }
+
+  const totalQtyInCart = cart
+    .filter(item => item.id === product.id)
+    .reduce((sum, item) => sum + item.quantity, 0);
+
+  const totalRequested = quantity + totalQtyInCart;
+
+  if (totalRequested > product.stock) {
+    alert(`Sorry! Only ${product.stock - totalQtyInCart} units of "${product.name}" are available in stock.`);
+    return;
+  }
+
+  const existingItem = cart.find(item => item.id === product.id && item.power === selectedPower);
+
+  if (existingItem) {
+    existingItem.quantity += quantity;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      power: selectedPower,
+      quantity: quantity
+    });
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`${product.name} (${selectedPower}) x${quantity} added to cart!`);
+});
+</script>
+
+</body>
+</html>
