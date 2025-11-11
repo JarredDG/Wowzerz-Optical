@@ -236,6 +236,7 @@ document.querySelector("#loginForm").addEventListener("submit", function(event) 
     if (user.password === password) {
       alert("Login successful!");
       localStorage.setItem("loggedInUser", username);
+      localStorage.setItem("isLoggedIn", "true"); 
       window.location.href = "home.html";
     } else {
       alert("Incorrect password. Try again.");
