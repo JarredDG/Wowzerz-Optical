@@ -1,0 +1,118 @@
+<!--
+Group 5
+1. Aboga, Andrei A.
+2. Agasin, Sean Lei C.
+3. Codilla, Clark Miguel S.
+4. De Guzman, Jarred Allen C.
+5. Lacandula, Ernest Paolo E.
+IT11S4
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="cartstyle.css">
+</head>
+<body>
+
+<div class="froggers">
+  <div class="nav"><a href="index.html"><h1>HOME</h1></a></div>
+  <div class="nav"><a href="details.html"><h1>DETAILS</h1></a></div>
+
+  <div class="nav">
+    <div class="dropdown">
+      <h1>EYEWEAR ▼</h1>
+      <div class="dropdown-content">
+        <a href="Eyeglasses-men.html">Men</a>
+        <a href="Eyeglasses-womens.html">Women</a>
+        <a href="Eyeglasses-kids.html">Kids</a>
+        <a href="Eyeglasses-unisex.html">Unisex</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav"><a href="contact.html"><h1>CONTACT US</h1></a></div>
+  <div class="nav"><a href="About-us.html"><h1>ABOUT US</h1></a></div>
+  <div class="cart-btn"><a href="cart.html">🛒</a></div>
+  <div class="nav2"><a href="signup.html">➜]</a></div>
+</div>
+
+<div class="align" id="cart-container"></div>
+<div class="bottomcase">
+  <div class="checkout">
+    <h1><a href="deliverydetails.html">PROCEED TO CHECKOUT</a></h1>
+  </div>
+</div>
+
+<script>
+
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  // If there is no login info or it's false, block access
+  if (!isLoggedIn || isLoggedIn === "false") {
+    alert("Please log in or sign up to view your cart.");
+    window.location.href = "login.html"; // redirect guest to login
+  }
+
+  // Load cart from localStorage
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartContainer = document.getElementById('cart-container');
+
+  function renderCart() {
+    cartContainer.innerHTML = ""; 
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = "<h2>Your cart is empty 🛒</h2>";
+      return;
+    }
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      const numericPrice = parseFloat(item.price.replace(/[₱,]/g, ""));
+      const itemTotal = numericPrice * item.quantity;
+      total += itemTotal;
+
+      const productDiv = document.createElement("div");
+      productDiv.classList.add("product");
+
+      productDiv.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="proddetails">
+          <h2>${item.name} 
+            <button class="remove-btn" data-index="${index}">🗑️</button>
+          </h2>
+          <p>Price: ${item.price}</p>
+          <p>Quantity: ${item.quantity}</p>
+          <p>Subtotal: ₱${itemTotal.toLocaleString()}</p>
+        </div>
+      `;
+
+      cartContainer.appendChild(productDiv);
+    });
+
+    const totalDiv = document.createElement("div");
+    totalDiv.classList.add("cart-total");
+    totalDiv.innerHTML = `<h2>Total: ₱${total.toLocaleString()}</h2>`;
+    cartContainer.appendChild(totalDiv);
+
+    const removeButtons = document.querySelectorAll(".remove-btn");
+    removeButtons.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const index = e.target.getAttribute("data-index");
+        removeItem(index);
+      });
+    });
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+  }
+
+  renderCart();
+</script>
+
+</body>
+</html>

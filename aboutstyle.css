@@ -1,0 +1,233 @@
+body, html {
+  margin: 0;
+  padding: 0; 
+  background-color:#e4f4e3;
+  overflow-x: hidden;
+}
+
+.froggers {
+background-color: #00A651;
+color: black;
+border: solid black;
+margin: -10px;
+padding: 6px;
+justify-content:space-around;
+display:flex;
+gap: 10px;
+}
+
+.nav {
+background-color: white;
+border: 2px solid black;
+border-radius: 15px;
+padding: 5px;
+margin-left:10px;
+margin-right:10px;
+margin-top:13px;
+margin-bottom:5px;
+width: 250px;
+height: 40px;
+display:flex;
+justify-content: center;
+align-items: center;
+}
+.nav a {  
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
+    
+    .nav2 {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 50%;
+  width: 53.5px;
+  height: 53.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  transition: 0.3s;
+    }
+
+    .nav2 a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
+
+.cart-btn {
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 50%;
+    padding: 2px 2px;
+    margin-top:10px;
+    font-weight: bold;
+    font-size:20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    z-index: 1;
+    top: 60px;
+    left: 4.25%;
+    
+  }
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f2f2f2;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+.cart:hover {
+    background-color: #f2f2f2;
+  }
+
+    .about-section {
+     margin-top:0px;
+      margin-bottom:100px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 40px;
+    }
+
+    .about-section h1 {
+    
+       min-height: auto;
+       width: auto;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       padding: 40px;
+        padding-top: 10px;
+        height: calc(100vh - 65px);  
+       margin-top: -250px;           
+       box-sizing: border-box;
+   
+    }
+
+    .about-section h2 {
+      margin-top: -100px; /* adjust this value until it looks right */
+}
+
+
+    .about-card {
+      background-color: #00A651;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 10px;
+      width: 80%;
+      max-width: 900px;
+      font-size: 18px;
+      line-height: 1.8;
+      color: #000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-top:-325px;
+    }
+
+    .developer-grid {
+      
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px,auto));
+      gap: 50px;
+      justify-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      margin-top: -150px;
+    }
+
+    .developer {
+      background-color: rgb(197, 232, 200);
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 200px;
+      border-radius: 5px;
+    }
+
+    .developer img {
+      width: 100%;
+      height: 200px;
+      margin-top: 25px;
+      object-fit: contain;
+      background-color: #f0f0f0;
+    }
+
+    .developer-name {
+      font-weight: bold;
+      margin-top: 10px;
+    
+    }
+
+    .price {
+      margin-top: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .position-title{
+      font-size: 115%;
+      font-weight: bold;
+      margin-top: -5px;
+      margin-bottom: -20px;
+      
+    }
+  .small-image-bg {
+position: absolute;
+top: 100px; 
+right: -450px;
+border: solid black 5px;
+border-radius: 75px;
+background-color:  #00A651;
+width: 640px;
+height:200px;
+justify-content: center;
+align-items: center;
+}
+
+  .small-image {
+  margin-left: -25px;
+  margin-top: -25px;
+  top: 50px;    /* control separately */
+  right: 50px;
+  width: 250px;
+  height: auto;
+  z-index: 2;   /* sits above the green background */
+}
+
+
+    
