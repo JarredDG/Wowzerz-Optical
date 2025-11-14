@@ -14,7 +14,7 @@ IT11S4
 <link rel="stylesheet" href="delivery.css">
 </head>
 <body>
-  
+
 <div class="froggers">
   <div class="nav"><a href="index.html"><h1>HOME</h1></a></div>
   <div class="nav"><a href="details.html"><h1>DETAILS</h1></a></div>
@@ -34,22 +34,23 @@ IT11S4
   <div class="cart-btn"><a href="cart.html">🛒</a></div>
   <div class="nav2"><a href="signup.html">➜]</a></div>
 </div>
- 
+
 <div class="container">
   <h2>Details for Delivery:</h2>
 
   <form id="delivery-form">
+
     <div style="margin-bottom:15px;">
       <label>Customer Name:</label>
       <input type="text" id="custName" placeholder="Enter your name" required>
     </div>
 
-    <div style="margin-bottom:15px;">	
+    <div style="margin-bottom:15px;">
       <label>Mobile Number:</label>
       <input type="text" id="custNumber" placeholder="Enter your mobile number" required>
     </div>
 
-    <div style="margin-bottom:10px;">	
+    <div style="margin-bottom:10px;">
       <label>Address:</label>
       <input type="text" id="custAddress" placeholder="Address" required>
     </div>
@@ -63,14 +64,23 @@ IT11S4
       </select>
     </div>
 
-    <div style="margin-bottom:15px;" id="cashAmountDiv";>
+    <!-- ▼▼▼ TOTAL PRICE DISPLAY HERE ▼▼▼ -->
+    <div style="margin-bottom:15px;">
+      <label><strong>Total Amount:</strong></label>
+      <div id="totalDisplay" style="font-size:18px; font-weight:bold; margin-top:5px;">
+        ₱0.00
+      </div>
+    </div>
+    <!-- ▲▲▲ TOTAL PRICE DISPLAY HERE ▲▲▲ -->
+
+    <div style="margin-bottom:15px;" id="cashAmountDiv">
       <label>Amount You’ll Pay:</label>
       <input type="number" id="custCash" placeholder="Enter amount you’ll pay" min="0" step="0.01">
     </div>
 
- <div style="margin-bottom:15px;">
-  <label><input type="checkbox" id="seniorPWD"> Senior / PWD Discount (20%)</label>
-</div>
+    <div style="margin-bottom:15px;">
+      <label><input type="checkbox" id="seniorPWD"> Senior / PWD Discount (20%)</label>
+    </div>
 
     <div class="button">
       <button type="submit">CONFIRM ORDER</button>
@@ -79,6 +89,7 @@ IT11S4
 </div>
 
 <script>
+// Show/hide cash field
 document.getElementById('paymentMethod').addEventListener('change', function() {
   const cashField = document.getElementById('cashAmountDiv');
   if (this.value === 'Cash on Delivery') {
@@ -89,28 +100,55 @@ document.getElementById('paymentMethod').addEventListener('change', function() {
   }
 });
 
-document.getElementById('delivery-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-
+// --- FUNCTION TO CALCULATE TOTAL ---
+function calculateTotal() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   let total = 0;
+
   cart.forEach(item => {
     const price = parseFloat(item.price.replace(/[₱,]/g, ""));
     total += price * item.quantity;
   });
 
+  const discountChecked = document.getElementById('seniorPWD').checked;
+  let discountAmount = discountChecked ? total * 0.20 : 0;
+
+  const finalTotal = total - discountAmount;
+
+  // Update visible total
+  document.getElementById('totalDisplay').textContent =
+    `₱${finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+
+  return finalTotal;
+}
+
+// Update total on page load
+window.addEventListener("load", calculateTotal);
+
+// Update total when discount is toggled
+document.getElementById('seniorPWD').addEventListener('change', calculateTotal);
+
+// FORM SUBMISSION
+document.getElementById('delivery-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let total = 0;
+
+  cart.forEach(item => {
+    const price = parseFloat(item.price.replace(/[₱,]/g, ""));
+    total += price * item.quantity;
+  });
+
+  const discountChecked = document.getElementById('seniorPWD').checked;
+  const discountAmount = discountChecked ? total * 0.20 : 0;
+  const finalTotal = total - discountAmount;
+
   const paymentMethod = document.getElementById('paymentMethod').value;
   const cashAmount = parseFloat(document.getElementById('custCash').value) || 0;
 
-  const discountChecked = document.getElementById('seniorPWD').checked;
-  let discountAmount = 0;
-  if (discountChecked) {
-    discountAmount = total * 0.20;
-  }
-
-const finalTotal = total - discountAmount;
-
-  if (paymentMethod === 'Cash on Delivery') {
+  // Validate Cash on Delivery
+  if (paymentMethod === "Cash on Delivery") {
     if (isNaN(cashAmount) || cashAmount < finalTotal) {
       alert(`The amount you entered (₱${cashAmount.toLocaleString()}) is less than your total payable amount of ₱${finalTotal.toLocaleString()}.\n\nPlease enter a valid amount.`);
       return;
@@ -131,18 +169,20 @@ const finalTotal = total - discountAmount;
 
   localStorage.setItem('customerDetails', JSON.stringify(customer));
 
-let products = JSON.parse(localStorage.getItem('products')) || [];
+  // Update product stock
+  let products = JSON.parse(localStorage.getItem('products')) || [];
   cart.forEach(item => {
     const product = products.find(p => p.id === item.id);
     if (product) {
       product.stock -= item.quantity;
-      if (product.stock < 0) product.stock = 0; // prevent negative stock
+      if (product.stock < 0) product.stock = 0;
     }
   });
-  localStorage.setItem('products', JSON.stringify(products))
+  localStorage.setItem('products', JSON.stringify(products));
 
   window.location.href = "ordersummary.html";
 });
 </script>
+
 </body>
 </html>
